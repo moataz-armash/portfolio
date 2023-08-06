@@ -5,5 +5,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;600;700&family=Poppins:wght@400;700&family=Roboto:wght@100&family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap");
 
+// global
+@import "global.scss";
+
 // components
 @import "components/navbar.scss";
+@import "components/frontendskills.scss";

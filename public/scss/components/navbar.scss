@@ -1,18 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  background-color: #222;
-}
-
-.container {
-  // width: 1200px;
-}
-
 // NAVBAR SECTION
 .main-header {
   display: flex;
@@ -22,7 +7,7 @@ body {
   margin: 30px 60px 0;
 }
 
-nav .nav-link:link,
+.nav-link:link,
 .nav-link:visited {
   color: hsla(0, 0%, 100%, 0.5);
   text-decoration: none;
@@ -32,9 +17,13 @@ nav .nav-link:link,
   font-size: 18px;
 }
 
-nav .nav-link:hover {
+.nav-link:hover {
   color: #fff;
   cursor: pointer;
+}
+
+.nav-link:active {
+  color: #fff;
 }
 
 nav {
@@ -70,7 +59,7 @@ nav {
 
 // ARTICLE SECTION
 
-article {
+.developer-container {
   display: flex;
   height: 528px;
   align-items: center;
