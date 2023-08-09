@@ -15,7 +15,7 @@ function Skills() {
           <div className="score-line"></div>
           <div className="icon-title-description-container">
             {/* <div className="icon"></div> */}
-            <Image src={pen} />
+            <Image src={pen} alt="pen" />
             <div className="title-desciption-container">
               <p className="skill-title">HTML, CSS, Javascript</p>
               <p className="skill-description">
@@ -28,7 +28,7 @@ function Skills() {
           </div>
           <div className="icon-title-description-container">
             {/* <div className="icon"></div> */}
-            <Image src={screen} />
+            <Image src={screen} alt="screen" />
             <div className="title-desciption-container">
               <p className="skill-title">HTML, CSS, Javascript</p>
               <p className="skill-description">
@@ -41,7 +41,7 @@ function Skills() {
           </div>
           <div className="icon-title-description-container">
             {/* <div className="icon"></div> */}
-            <Image src={store} />
+            <Image src={store} alt="store" />
             <div className="title-desciption-container">
               <p className="skill-title">HTML, CSS, Javascript</p>
               <p className="skill-description">
