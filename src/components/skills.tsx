@@ -1,7 +1,7 @@
 import Image from "next/image";
-import pen from "../../../public/pen.png";
-import screen from "../../../public/screen.png";
-import store from "../../../public/store.png";
+import pen from "../../public/pen.png";
+import screen from "../../public/screen.png";
+import store from "../../public/store.png";
 import Subject from "@/components/Subject";
 
 function Skills() {

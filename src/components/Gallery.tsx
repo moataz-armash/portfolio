@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import img1 from "../../../public/wallpaperflare.com_wallpaper (1).jpg";
-import img2 from "../../../public/wallpaperflare.com_wallpaper (10).jpg";
-import img3 from "../../../public/wallpaperflare.com_wallpaper (2).jpg";
-import img4 from "../../../public/wallpaperflare.com_wallpaper (3).jpg";
-import img5 from "../../../public/wallpaperflare.com_wallpaper (6).jpg";
-import img6 from "../../../public/wallpaperflare.com_wallpaper.jpg";
+import img1 from "../../public/wallpaperflare.com_wallpaper (1).jpg";
+import img2 from "../../public/wallpaperflare.com_wallpaper (10).jpg";
+import img3 from "../../public/wallpaperflare.com_wallpaper (2).jpg";
+import img4 from "../../public/wallpaperflare.com_wallpaper (3).jpg";
+import img5 from "../../public/wallpaperflare.com_wallpaper (6).jpg";
+import img6 from "../../public/wallpaperflare.com_wallpaper.jpg";
 
 function Gallery() {
   return (
