@@ -23,16 +23,6 @@ function Navbar() {
           <NavLink href="/pagefrontend" text="Front-end skills" />
           <NavLink href="/portfolio" text="portfolio" />
           <NavLink href="/contact" text="contact" />
-
-          {/* <Link className={`nav-link`} href="/pagefrontend">
-            Front-end skills
-          </Link>
-          <Link className={`nav-link`} onClick={handleClick} href="/portfolio">
-            portfolio
-          </Link>
-          <Link className={`nav-link`} onClick={handleClick} href="/contact">
-            contact
-          </Link> */}
         </nav>
       </header>
     </>

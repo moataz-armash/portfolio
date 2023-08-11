@@ -1,0 +1,132 @@
+// CATEGORY SECTION
+
+.category-container {
+  display: flex;
+  margin-top: 50px;
+  flex-direction: column;
+}
+
+.category-skills .title {
+  width: 200px;
+  height: 45px;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 35px; /* 125% */
+}
+
+.category-skills .title::after {
+  content: "";
+  border: 1px solid #007ced;
+  display: block;
+  width: 30px;
+  bottom: -7px;
+  position: relative;
+}
+
+.gallery-score-line {
+  width: 109px;
+  background-color: #353535;
+  height: 2px;
+  margin-top: -3px;
+  margin-left: 67px;
+}
+
+.category {
+  width: 549px;
+  height: 29px;
+  display: flex;
+  gap: 49px;
+  margin-left: 63px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.category .category-filter:link,
+.category .category-filter:visited {
+  color: hsla(0, 0%, 100%, 0.5);
+  text-decoration: none;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 35px; /* 194.444% */
+}
+
+// PROJECTS SECTION
+
+.projects-container {
+  width: 1140px;
+  align-items: center;
+  display: flex;
+  gap: 40px;
+  margin-bottom: 80px;
+  flex-direction: column;
+}
+
+.first-column,
+.second-column {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1020px;
+  gap: 20px;
+}
+
+.snapshot-text-container {
+  width: 450px;
+  height: 200px;
+}
+
+.up-down-text-container {
+  display: flex;
+  flex-direction: column;
+  height: 0px;
+  gap: 130px;
+}
+
+.project-snapshot {
+  border-radius: 25px;
+  width: 450px;
+  height: 200px;
+  margin-right: 16px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+}
+
+.up-category-text {
+  background: #007ced;
+  border-radius: 25px 0 25px 0;
+  width: 90px;
+  align-items: center;
+  color: #fff;
+  display: flex;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  height: 40px;
+  justify-content: center;
+  line-height: 35px;
+  position: relative;
+}
+
+.down-category-text {
+  background: rgba(0, 124, 237, 0.5);
+  border-radius: 0 25px 0 25px;
+  width: 120px;
+  align-items: center;
+  color: #fff;
+  display: flex;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  height: 40px;
+  justify-content: center;
+  line-height: 35px;
+  position: relative;
+}

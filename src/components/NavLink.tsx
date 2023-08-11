@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import React from "react";
 
 interface NavLinkProps {
-  href: string;
-  text: string;
+  href?: string;
+  text?: string;
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ href, text }) => {

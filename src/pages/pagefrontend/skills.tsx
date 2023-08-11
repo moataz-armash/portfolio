@@ -2,13 +2,12 @@ import Image from "next/image";
 import pen from "../../../public/pen.png";
 import screen from "../../../public/screen.png";
 import store from "../../../public/store.png";
+import Subject from "@/components/Subject";
 
 function Skills() {
   return (
     <>
-      <article className="title-border">
-        <div className="title">Front-end Skills</div>
-      </article>
+      <Subject title="Front-end skills" />
       <div className="skills-container">
         <div className="skills">
           <p className="title">what do i do ?</p>
