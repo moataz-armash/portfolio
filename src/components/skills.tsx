@@ -16,12 +16,11 @@ function Skills() {
             {/* <div className="icon"></div> */}
             <Image src={pen} alt="pen" />
             <div className="title-desciption-container">
-              <p className="skill-title">HTML, CSS, Javascript</p>
+              <p className="skill-title">Design Analysis and Optimization</p>
               <p className="skill-description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                quia error deserunt qui, sunt perspiciatis assumenda nesciunt,
-                reprehenderit facilis illo ut pariatur nobis! Magni ducimus
-                omnis eius velit illo autem.
+                My process begins with a detailed analysis of your Figma design,
+                optimizing its elements to ensure a smooth and efficient
+                transition to functional code.
               </p>
             </div>
           </div>
@@ -29,12 +28,11 @@ function Skills() {
             {/* <div className="icon"></div> */}
             <Image src={screen} alt="screen" />
             <div className="title-desciption-container">
-              <p className="skill-title">HTML, CSS, Javascript</p>
+              <p className="skill-title">Precise Conversion to Code</p>
               <p className="skill-description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                quia error deserunt qui, sunt perspiciatis assumenda nesciunt,
-                reprehenderit facilis illo ut pariatur nobis! Magni ducimus
-                omnis eius velit illo autem.
+                I meticulously convert your Figma design into high-quality HTML,
+                CSS, and JavaScript code, capturing every detail and ensuring a
+                seamless user experience.
               </p>
             </div>
           </div>
@@ -42,12 +40,14 @@ function Skills() {
             {/* <div className="icon"></div> */}
             <Image src={store} alt="store" />
             <div className="title-desciption-container">
-              <p className="skill-title">HTML, CSS, Javascript</p>
+              <p className="skill-title">
+                {" "}
+                Rigorous Testing and Quality Assurance
+              </p>
               <p className="skill-description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                quia error deserunt qui, sunt perspiciatis assumenda nesciunt,
-                reprehenderit facilis illo ut pariatur nobis! Magni ducimus
-                omnis eius velit illo autem.
+                Before deployment, I subject the code to rigorous testing,
+                thoroughly examining its behavior across different devices and
+                browsers to guarantee flawless functionality.
               </p>
             </div>
           </div>
