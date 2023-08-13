@@ -5,9 +5,10 @@ import React from "react";
 interface NavLinkProps {
   href?: any;
   text?: string;
+  open?: any;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ href, text }) => {
+const NavLink: React.FC<NavLinkProps> = ({ href, text, open }) => {
   const router = useRouter();
   const style = {
     color: router.asPath === href ? "#fff" : "hsla(0, 0%, 100%, 0.5)",
@@ -17,13 +18,15 @@ const NavLink: React.FC<NavLinkProps> = ({ href, text }) => {
     router.push(href);
   };
   return (
-    <Link
-      className={`nav-link`}
-      onClick={handleClick}
-      style={style}
-      href={href}>
-      {text}
-    </Link>
+    <>
+      <Link
+        className={`nav-link`}
+        onClick={handleClick}
+        style={style}
+        href={href}>
+        {text}
+      </Link>
+    </>
   );
 };
 

@@ -1,0 +1,38 @@
+@media (max-width: 767px) {
+  /*Mobile and tablet screen rules*/
+}
+
+@media (min-width: 768px) {
+  /*Small screen rules*/
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  /*Medium screen rules*/
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  /*Large screen rules*/
+  .container {
+    width: 1170px;
+  }
+}
+
+// Start My Framework
+
+.container {
+  margin: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// End My Framwork

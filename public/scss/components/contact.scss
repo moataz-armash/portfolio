@@ -32,7 +32,7 @@
 
 .second-contact-container {
   display: flex;
-  width: 760px;
+  width: 660px;
   gap: 30px;
 }
 
@@ -74,6 +74,7 @@
 .input-textarea-container {
   display: flex;
   gap: 30px;
+  width: 600px;
 }
 
 .input-container {
@@ -104,23 +105,22 @@ input::-moz-placeholder {
 
 // TEXT AREA
 
-.text-area {
+textarea {
   height: 212px;
   border: 2px solid #555;
   padding: 10px;
   color: rgba(255, 255, 255, 0.5);
   background: #222;
+  border-radius: 5px;
   font-size: 18px;
 }
 
-.text-area::placeholder {
+textarea::placeholder {
   font-family: Poppins;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 35px; /* 194.444% */
-  border-radius: 5px;
-  border: 2px solid #555;
 }
 
 .send-btn {

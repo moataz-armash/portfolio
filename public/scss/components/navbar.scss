@@ -7,6 +7,19 @@
   margin: 30px 60px 0;
 }
 
+.burger-bar {
+  cursor: pointer;
+}
+
+.burger-link {
+  color: hsla(0, 0%, 100%, 0.5);
+  text-decoration: none;
+  font-family: Poppins;
+  text-transform: uppercase;
+  line-height: 35px;
+  font-size: 18px;
+}
+
 .nav-link:link,
 .nav-link:visited {
   color: hsla(0, 0%, 100%, 0.5);
