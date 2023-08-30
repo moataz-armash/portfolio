@@ -13,16 +13,26 @@ function Navbar() {
   // };
   return (
     <>
-      <header className="main-header">
+      <header className="header">
         <div className="logo-side">
-          <div className="logo"></div>
+          <div className="logo">&nbsp;</div>
           <div className="letter">DevMoataz</div>
         </div>
-        <nav>
-          <NavLink href="/" text="Home" />
-          <NavLink href="/pagefrontend" text="Front-end skills" />
-          <NavLink href="/portfolio" text="portfolio" />
-          <NavLink href="/contact" text="contact" />
+        <nav className="main-nav">
+          <ul className="main-nav-list">
+            <li>
+              <NavLink href="/" text="Home" />
+            </li>
+            <li>
+              <NavLink href="/about" text="Front-end skills" />
+            </li>
+            <li>
+              <NavLink href="/portfolio" text="portfolio" />
+            </li>
+            <li>
+              <NavLink href="/contact" text="contact" />
+            </li>
+          </ul>
         </nav>
       </header>
     </>

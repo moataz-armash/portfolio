@@ -11,7 +11,7 @@ interface NavLinkProps {
 const NavLink: React.FC<NavLinkProps> = ({ href, text, open }) => {
   const router = useRouter();
   const style = {
-    color: router.asPath === href ? "#fff" : "hsla(0, 0%, 100%, 0.5)",
+    color: router.asPath === href ? "#fff" : "#ffffff80",
   };
   const handleClick = (e: any) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const NavLink: React.FC<NavLinkProps> = ({ href, text, open }) => {
   return (
     <>
       <Link
-        className={`nav-link`}
+        className={`main-nav-link`}
         onClick={handleClick}
         style={style}
         href={href}>

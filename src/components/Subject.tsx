@@ -1,5 +1,3 @@
-import React from "react";
-
 type SubjectProps = {
   title?: string;
 };
@@ -7,9 +5,7 @@ type SubjectProps = {
 function Subject({ title }: SubjectProps) {
   return (
     <>
-      <article className="title-border">
-        <div className="title">{title}</div>
-      </article>
+      <h1 className="heading-title">{title}</h1>
     </>
   );
 }
