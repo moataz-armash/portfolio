@@ -11,7 +11,9 @@ function Skills() {
       <section className="skills-section">
         <div className="skills-box">
           <h3 className="title">what do i do ?</h3>
-          <div className="score-line"></div>
+          <div className="progress-bar about">
+            <div className="progress-fill"></div>
+          </div>
           <div className="icon-title-description-container">
             <Image src={pen} alt="pen" />
             <div className="title-desciption-container">
@@ -50,7 +52,9 @@ function Skills() {
         </div>
         <div className="skills-box">
           <p className="title">Coding skills</p>
-          <div className="score-line"></div>
+          <div className="progress-bar">
+            <div className="progress-fill"></div>
+          </div>
           <div className="skill-rate-box">
             <div className="skill-rate-container">
               <div className="title-desciption-container">

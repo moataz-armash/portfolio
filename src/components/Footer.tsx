@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { useState } from "react";
 
 function Footer() {
+  const [currentYear, setCurrentYear] = useState("2023");
+  const autoYear = new Date().getFullYear().toString();
+  if (autoYear !== currentYear) {
+    setCurrentYear(autoYear);
+  }
+
   return (
     <>
       <div className="line"></div>
@@ -21,7 +28,7 @@ function Footer() {
             </Link>
           </ul>
         </nav>
-        <p className="copywrite">&copy; 2023 DevMoataz</p>
+        <p className="copywrite">&copy; {currentYear} DevMoataz</p>
       </footer>
     </>
   );

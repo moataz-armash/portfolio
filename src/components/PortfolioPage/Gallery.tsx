@@ -12,7 +12,9 @@ function Gallery() {
     <div>
       <div className="category-skills">
         <p className="title">Gallery</p>
-        <div className="gallery-score-line"></div>
+        <div className="progress-bar outline">
+          <div className="progress-fill"></div>
+        </div>
       </div>
       <div className="category">
         <Link className="category-filter" href="#">

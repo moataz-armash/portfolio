@@ -13,19 +13,11 @@
   line-height: 3.5rem;
 }
 
-.gallery-score-line {
-  max-width: 10rem;
-  background-color: #353535;
+.progress-bar.outline {
+  width: 7.5%;
   height: 0.2rem;
-  margin-top: 0.3rem;
-}
-
-.category-skills .title::after {
-  content: "";
-  border: 1px solid #007ced;
-  display: block;
-  max-width: 3rem;
-  top: 0.5rem;
+  margin-top: 0.7rem;
+  background-color: #353535;
   position: relative;
 }
 
@@ -59,7 +51,7 @@
 
 .projects-container {
   display: grid;
-  grid-row-gap: 3.4rem;
+  grid-row-gap: 2.4rem;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 0 5.4rem 4.8rem 5.4rem;
   grid-column-gap: 2.4rem;
@@ -67,16 +59,31 @@
 
 .up-down-text-container {
   position: relative;
+  overflow: hidden;
+  border-radius: 25px;
 }
 
 .project-snapshot {
-  border-radius: 25px;
   max-width: 100%;
   height: 21rem;
+  object-fit: cover;
+  opacity: 0.7;
+  border-radius: 25px;
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   -ms-border-radius: 25px;
   -o-border-radius: 25px;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+
+.project-snapshot:hover {
+  transform: scale(1.2);
+  opacity: 1;
+  cursor: pointer;
 }
 
 .up-category-text {
@@ -84,9 +91,9 @@
   align-items: center;
   justify-content: center;
   max-width: 9rem;
-  background: #007ced;
+  background: var(--theme-default);
   color: #fff;
-  padding: 0.2rem 1.2rem;
+  padding: 0.2rem 2.4rem;
   border-radius: 25px 0 25px 0;
   font-weight: 400;
   top: 0;
