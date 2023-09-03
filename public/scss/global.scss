@@ -55,8 +55,11 @@ body {
   background-color: #222;
   line-height: 1;
   font-weight: 400;
+  overflow-x: hidden;
 }
 
 html {
   font-size: 62.5%;
+  overflow-x: hidden;
+  // scroll-behavior: smooth;
 }

@@ -15,7 +15,7 @@ function ContactInfo() {
           </div>
           <div className="info-container">
             <Image className="image-icon" src={location} alt="phone" />
-            <div className="phone-number">Sakary, Turkey</div>
+            <div className="phone-number">Sakarya, Turkey</div>
           </div>
           <div className="info-container">
             <Image className="image-icon" src={mail} alt="phone" />
@@ -23,26 +23,28 @@ function ContactInfo() {
           </div>
         </div>
         <div className="second-contact-container">
-          <div className="massege-box-container">
-            <div className="contact-me">
-              <p className="title">Contact me !</p>
-              <div className="contact-score-line"></div>
-            </div>
-            <div className="input-container">
-              <input type="text" placeholder="Enter your Name" />
-              <input type="email" placeholder="Email" />
-              <input type="text" placeholder="Website Type" />
-            </div>
-            <div className="buttons">
-              <button className="send-btn">Send</button>
+          {/* <div className="massege-box-container"> */}
+          <div className="contact-me">
+            <p className="title">Contact me !</p>
+            <div className="progress-bar contact">
+              <div className="progress-fill"></div>
             </div>
           </div>
-          <textarea
-            placeholder="Start Writing Now..."
-            rows={rowsvalue}
-            cols={columnsvalue}></textarea>
+          <div className="input-container">
+            <input type="text" placeholder="Enter your Name" />
+            <input type="email" placeholder="Email" />
+            <input type="text" placeholder="Website Type" />
+            <textarea
+              placeholder="Start Writing Now..."
+              rows={rowsvalue}
+              cols={columnsvalue}></textarea>
+          </div>
+          <div className="buttons">
+            <button className="send-btn">Send</button>
+          </div>
         </div>
       </div>
+      {/* </div> */}
     </>
   );
 }

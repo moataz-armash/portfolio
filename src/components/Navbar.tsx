@@ -1,19 +1,17 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import NavLink from "./NavLink";
 function Navbar() {
-  const router = useRouter();
-  // const style = {
-  //   color: router.asPath === href ? "#fff" : "hsla(0, 0%, 100%, 0.5)",
-  // };
-  // const handleClick = (e: any) => {
-  //   e.preventDefault();
-  //   router.push(href);
-  // };
+  const [isOpen, setIsOpen] = useState(true);
+  const clickHandle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
   return (
     <>
-      <header className="header">
+      <header className={isOpen ? "header" : "header nav-open"}>
         <div className="logo-side">
           <div className="logo">&nbsp;</div>
           <div className="letter">DevMoataz</div>
@@ -21,19 +19,55 @@ function Navbar() {
         <nav className="main-nav">
           <ul className="main-nav-list">
             <li>
-              <NavLink href="/" text="Home" />
+              <NavLink href="/" text="Home" closeMenu={closeMenu} />
             </li>
             <li>
-              <NavLink href="/about" text="Front-end skills" />
+              <NavLink
+                href="/about"
+                text="Front-end skills"
+                closeMenu={closeMenu}
+              />
             </li>
             <li>
-              <NavLink href="/portfolio" text="portfolio" />
+              <NavLink
+                href="/portfolio"
+                text="portfolio"
+                closeMenu={closeMenu}
+              />
             </li>
             <li>
-              <NavLink href="/contact" text="contact" />
+              <NavLink href="/contact" text="contact" closeMenu={closeMenu} />
             </li>
           </ul>
         </nav>
+        <button onClick={clickHandle} className="btn-mobile-nav">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="icon-mobile-nav open">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="icon-mobile-nav close">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
       </header>
     </>
   );

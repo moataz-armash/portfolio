@@ -23,30 +23,28 @@
 }
 
 .skills-box {
-  padding: 0 4.8rem;
+  padding: 0 5.4rem;
 }
 
 .skills-box .title {
   color: #fff;
   font-size: 2.4rem;
   font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-.skills-box .title::after {
-  content: "";
-  border: 1px solid #007ced;
-  display: block;
-  width: 3.2rem;
-  top: 0.7rem;
+.progress-bar {
+  width: 24%;
+  height: 0.2rem;
+  margin-top: -0.2rem;
+  background-color: #353535;
   position: relative;
 }
 
-.score-line {
-  background-color: #353535;
-  width: 2.4rem;
-  height: 0.2rem;
-  padding: 0 8rem;
-  margin-top: 0.5rem;
+.progress-fill {
+  height: 100%;
+  width: 30%;
+  background-color: var(--theme-default);
 }
 
 .icon-title-description-container {
@@ -80,7 +78,7 @@
 .skill-rate-box {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.7rem;
 }
 
 .skill-rate-container:first-child {
@@ -103,7 +101,7 @@
   max-width: 650px;
   height: 17px;
   border-radius: 8px;
-  background: #007ced;
+  background: var(--theme-default);
   border: 3px solid #000;
   outline: 3px solid #444;
 }
@@ -116,10 +114,10 @@
 }
 
 .skill-line-html {
-  max-width: 66rem;
+  max-width: 100%;
   height: 1.7rem;
   border-radius: 8px;
-  background: #007ced;
+  background: var(--theme-default);
   border: 3px solid #222;
 }
 
@@ -131,11 +129,11 @@
 }
 
 .skill-line-css {
-  max-width: 60rem;
+  max-width: 90%;
   height: 1.7rem;
   transition: all 0.5s ease-in-out;
   border-radius: 8px;
-  background: #007ced;
+  background: var(--theme-default);
   border: 3px solid #222;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;

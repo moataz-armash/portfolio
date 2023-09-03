@@ -18,7 +18,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ publicId }) => {
   }, []);
 
   return (
-    <CloudinaryContext cloudName="dkkqltqzb">
+    <CloudinaryContext className="frame-for-video" cloudName="dkkqltqzb">
       <CircularVideoFrame videoSrc={publicId} />
     </CloudinaryContext>
   );

@@ -27,6 +27,7 @@
   font-size: 2.2rem;
   font-style: normal;
   font-weight: 500;
+  letter-spacing: 0.09rem;
   line-height: 3.5rem;
 }
 
@@ -48,6 +49,12 @@
   gap: 3rem;
 }
 
+.contact-me,
+.input-container,
+.buttons {
+  grid-column: 1/-1;
+}
+
 .contact-me .title {
   color: #fff;
   font-size: 2.4rem;
@@ -55,28 +62,25 @@
   line-height: 3.5rem;
 }
 
-.contact-me .title::after {
-  content: "";
-  border: 1px solid #007ced;
-  background: #007ced;
-  display: block;
-  width: 3rem;
-  bottom: -7px;
+.progress-bar.contact {
+  width: 20%;
+  height: 0.2rem;
+  margin-top: -0.2rem;
+  background-color: #353535;
   position: relative;
 }
 
-.contact-score-line {
-  width: 10.9rem;
-  background-color: #353535;
-  height: 0.2rem;
-  margin-top: 5px;
+.progress-fill {
+  height: 100%;
+  width: 30%;
+  background-color: var(--theme-default);
 }
 
 .input-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 3.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2.4rem;
+  row-gap: 3.2rem;
 }
 
 .input-container input {
@@ -88,6 +92,7 @@
   border: 2px solid #555;
   background-color: #222;
   padding: 2rem;
+  grid-column: 1/2;
 }
 
 /*************************/
@@ -95,7 +100,7 @@
 /*************************/
 
 textarea {
-  height: 58.5%;
+  height: 98.5%;
   max-width: 100%;
   border: 2px solid #555;
   padding: 1rem;
@@ -103,6 +108,7 @@ textarea {
   background: #222;
   border-radius: 5px;
   font-size: 1.8rem;
+  grid-row: 3/-2;
   grid-column: 2 / -1;
 }
 
@@ -116,7 +122,7 @@ textarea::placeholder {
   width: 15rem;
   height: 4.2rem;
   border-radius: 30px;
-  border: 3px solid #007ced;
+  border: 3px solid var(--theme-default);
   background: #333;
   color: #fff;
   font-size: 2rem;

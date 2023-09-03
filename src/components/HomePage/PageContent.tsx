@@ -1,5 +1,7 @@
+import dynamic from "next/dynamic";
 import VideoPlayer from "./VideoPlayer";
 import Link from "next/link";
+import { useEffect } from "react";
 function PageContent() {
   const video =
     "https://res.cloudinary.com/dkkqltqzb/video/upload/v1691113449/ezgif.com-resize_c0pixj.mp4";

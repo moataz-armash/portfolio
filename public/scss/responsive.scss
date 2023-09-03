@@ -1,38 +1,364 @@
-@media (max-width: 767px) {
-  /*Mobile and tablet screen rules*/
-}
+/* rem and em do NOT depend on html font-size 
+in media queries!, instead 1rem = 1em = 16px */
 
-@media (min-width: 768px) {
-  /*Small screen rules*/
-  .container {
-    width: 750px;
+/*************************/
+/* Below 1344px (Smaller desktops) */
+/*************************/
+
+@media (max-width: 84em) {
+  .hero {
+    max-width: 120rem;
+  }
+
+  html {
+    font-size: 60%;
+  }
+
+  .hero-video-box {
+    width: 38rem;
+    height: 38rem;
+  }
+
+  .hero-description {
+    line-height: 1.8;
+  }
+
+  .main-nav-list {
+    gap: 3.2rem;
+  }
+
+  .progress-bar {
+    width: 26%;
+  }
+
+  .progress-bar.contact {
+    width: 20%;
   }
 }
 
-@media (min-width: 992px) {
-  /*Medium screen rules*/
-  .container {
-    width: 970px;
+/*************************/
+/* Below 1200px (Landscape tablets) */
+/*************************/
+
+@media (max-width: 75em) {
+  .hero {
+    max-width: 115rem;
+  }
+
+  html {
+    // 9px / 16px
+    font-size: 56.25%;
+  }
+
+  .main-nav-list {
+    gap: 2.4rem;
+  }
+
+  .skill-title {
+    font-size: 1.4rem;
+    line-height: 3rem;
+  }
+
+  .skill-rate-box {
+    gap: 2.4rem;
+  }
+
+  .progress-bar {
+    width: 28%;
+  }
+
+  .progress-bar.outline {
+    width: 9%;
   }
 }
 
-@media (min-width: 1200px) {
-  /*Large screen rules*/
-  .container {
-    width: 1170px;
+/*************************/
+/* Below 1024px (tablets) */
+/*************************/
+
+@media (max-width: 64em) {
+  .hero {
+    max-width: 105rem;
+  }
+
+  html {
+    font-size: 53%;
+  }
+
+  .progress-bar {
+    width: 32%;
+  }
+
+  .progress-bar.contact {
+    width: 24%;
+  }
+
+  .btn-mobile-nav {
+    display: none;
   }
 }
 
-// Start My Framework
+/*************************/
+/* Below 944px (Still Tablets) */
+/*************************/
 
-.container {
-  margin: auto;
-  padding-left: 15px;
-  padding-right: 15px;
+@media (max-width: 59em) {
+  html {
+    font-size: 50%;
+  }
+
+  .heading-primary {
+    margin-bottom: 0;
+  }
+
+  .hero {
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    padding: 0 8rem;
+  }
+
+  .hero-video-box {
+    width: 45rem;
+    height: 45rem;
+    grid-column: 1 / -1;
+  }
+
+  .hero-text-box {
+    grid-column: 1 / -1;
+    align-items: center;
+  }
+
+  .hero-description {
+    text-align: center;
+    padding: 3.6rem 4.8rem;
+    margin-bottom: 0;
+  }
+
+  .skills-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .skills-box {
+    padding: 0 11.6rem;
+  }
+
+  .skill-rate-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .icon-title-description-container {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .title-desciption-container {
+    width: 55rem;
+  }
+
+  .heading-title {
+    text-align: center;
+    padding: 3.2rem 5.2rem;
+  }
+
+  .progress-bar {
+    width: 17.5%;
+    height: 0.2rem;
+    margin: 0 auto;
+  }
+
+  .heading-title {
+    font-size: 4rem;
+  }
+
+  .category {
+    padding: 1.2rem 5.6rem 3.2rem 5.6rem;
+    justify-content: center;
+  }
+
+  .projects-container {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 5.4rem 4.8rem 5.4rem;
+  }
+
+  .category {
+    gap: 3.2rem;
+  }
+
+  .main-nav-link:link,
+  .main-nav-link:visited {
+    font-size: 1.6rem;
+  }
+
+  .category-skills .title {
+    text-align: center;
+  }
+
+  .contact-massege-box {
+    grid-template-columns: 1fr;
+  }
+  .first-contact-container,
+  .second-contact-container,
+  .contact-me,
+  .input-container,
+  .buttons {
+    grid-column: 1/-1;
+  }
+
+  .second-contact-container {
+    justify-items: center;
+  }
+
+  .info-container {
+    justify-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .info-container:last-child {
+    margin-bottom: 6.4rem;
+  }
+
+  .image-icon {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  .progress-bar.contact {
+    width: 100%;
+  }
+
+  .input-container {
+    grid-template-columns: 1fr;
+  }
+
+  textarea {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+
+  .main-nav {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: 10;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.3s ease-in;
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+  }
+
+  .nav-open .main-nav {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+
+  .nav-open .close {
+    display: block;
+  }
+
+  .btn-mobile-nav {
+    display: block;
+  }
+
+  .nav-open .open {
+    display: none;
+  }
+
+  .main-nav-list {
+    flex-direction: column;
+    gap: 5.6rem;
+  }
+
+  .main-nav-link:link,
+  .main-nav-link:visited {
+    font-size: 3rem;
+  }
 }
 
-.text-center {
-  text-align: center;
+/*************************/
+/* Below 704px (Smaller Tablets) */
+/*************************/
+
+@media (max-width: 44em) {
+  html {
+    font-size: 45%;
+  }
+
+  .heading-primary {
+    margin-bottom: 0;
+  }
+
+  .progress-bar {
+    width: 22%;
+  }
+
+  .progress-bar.outline {
+    width: 12%;
+  }
+
+  .skills-box {
+    padding: 0 3.2rem;
+  }
+
+  .progress-bar.about {
+    width: 17%;
+  }
+
+  .info-container {
+    margin-bottom: 1rem;
+  }
 }
 
-// End My Framwork
+/*************************/
+/* Below 500px (Phones) */
+/*************************/
+
+@media (max-width: 31em) {
+  html {
+    font-size: 40%;
+  }
+
+  .progress-bar.about {
+    width: 22%;
+  }
+
+  .title-desciption-container {
+    width: 50rem;
+  }
+
+  .projects-container {
+    row-gap: 3rem;
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 0 5.4rem 4.8rem 5.4rem;
+  }
+  .hero-description {
+    padding: 3.6rem 2rem;
+  }
+}
