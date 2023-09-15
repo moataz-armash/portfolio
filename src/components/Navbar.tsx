@@ -1,6 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
 function Navbar() {
+  useEffect(() => {
+    const btnNavEl = document.querySelector(".btn-mobile-nav");
+    const headerEl = document.querySelector(".header");
+
+    if (btnNavEl && headerEl) {
+      btnNavEl.addEventListener("click", function () {
+        headerEl.classList.toggle("nav-open");
+      });
+    }
+
+    // Fix flexbox gap property
+    function checkFlexGap() {
+      const flex = document.createElement("div");
+      flex.style.display = "flex";
+      flex.style.flexDirection = "column";
+      flex.style.rowGap = "1px";
+
+      flex.appendChild(document.createElement("div"));
+      flex.appendChild(document.createElement("div"));
+
+      document.body.appendChild(flex);
+      const isSupported = flex.scrollHeight === 1;
+      flex.parentNode?.removeChild(flex);
+      console.log(isSupported);
+
+      if (!isSupported) document.body.classList.add("no-flexbox-gap");
+    }
+
+    checkFlexGap();
+  }, []);
+
   const [isOpen, setIsOpen] = useState(true);
   const clickHandle = () => {
     setIsOpen(!isOpen);
