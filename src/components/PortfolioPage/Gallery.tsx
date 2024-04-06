@@ -30,7 +30,7 @@ const projects: Project[] = [
     category: "Practice",
     name: "meetup",
     image: img3,
-    link: "https://meetups-app-by-react-p269kffei-moatazarmashs-projects.vercel.app/",
+    link: "https://meetups-app-by-react.vercel.app/",
   },
 ];
 
