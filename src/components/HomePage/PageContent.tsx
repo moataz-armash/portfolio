@@ -1,42 +1,69 @@
-import dynamic from "next/dynamic";
-import VideoPlayer from "./VideoPlayer";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useEffect } from "react";
-function PageContent() {
-  const video =
-    "https://res.cloudinary.com/dkkqltqzb/video/upload/v1691113449/ezgif.com-resize_c0pixj.mp4";
+import VideoPlayer from "./VideoPlayer";
+import { fetchPageContent } from "../../services/api";
+import { PageContent as PageContentType } from "../../types";
+import { DEFAULT_PAGE_CONTENT } from "../../utils/constants";
+
+const PageContent: React.FC = () => {
+  const [pageContent, setPageContent] =
+    useState<PageContentType>(DEFAULT_PAGE_CONTENT);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPageContent = async () => {
+      try {
+        const content = await fetchPageContent();
+        setPageContent(content);
+      } catch (error) {
+        console.error("Error loading page content:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadPageContent();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const { title, subtitle, description, videoUrl, cvUrl } = pageContent;
+
   return (
     <main>
       <section className="section-hero">
         <div className="hero">
           <div className="hero-video-box">
-            <VideoPlayer publicId={video} />
+            {videoUrl && <VideoPlayer publicId={videoUrl} />}
           </div>
           <div className="hero-text-box">
-            <div className="heading-secondary">Front-End Developer</div>
-            <h1 className="heading-primary">DevMoataz</h1>
-            <div className="hero-description">
-              Experienced frontend developer with 1 year of practice, proficient
-              in HTML, CSS, and JavaScript. Skilled in creating interactive web
-              interfaces using React. Collaborated with cross-functional teams
-              to optimize webpage performance and ensure responsive designs.
-              Committed to delivering visually appealing, user-centric frontend
-              solutions. Eager to contribute expertise and continue growing in
-              web development.
-            </div>
+            <div className="heading-secondary">{subtitle}</div>
+            <h1 className="heading-primary">{title}</h1>
+            <div className="hero-description">{description}</div>
             <div className="buttons">
-              <Link className="btn btn--full" href="/portfolio">
+              <Link href="/portfolio" className="btn btn--full">
                 Portfolio
               </Link>
-              <Link className="btn btn--outline" href="/contact">
+              <Link href="/contact" className="btn btn--outline">
                 Contact
               </Link>
+              {cvUrl && (
+                <a
+                  href={cvUrl}
+                  className="btn btn--outline"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  View My CV
+                </a>
+              )}
             </div>
           </div>
         </div>
       </section>
     </main>
   );
-}
+};
 
 export default PageContent;

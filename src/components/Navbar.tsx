@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
+import { isOmittedExpression } from "typescript";
 function Navbar() {
   useEffect(() => {
     const btnNavEl = document.querySelector(".btn-mobile-nav");
@@ -38,7 +39,7 @@ function Navbar() {
   };
 
   const closeMenu = () => {
-    setIsOpen(false);
+    setIsOpen(!isOpen);
   };
   return (
     <>
