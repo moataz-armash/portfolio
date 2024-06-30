@@ -24,6 +24,17 @@ function ProjectComponent({ category, name, imageUrl, link }: Project) {
     </div>
   );
 }
+function SkeletonProject() {
+  return (
+    <div className="snapshot-text-container skeleton">
+      <div className="up-down-text-container">
+        <div className="project-snapshot skeleton-image"></div>
+        <div className="up-category-text skeleton-text"></div>
+        <div className="down-category-text skeleton-text"></div>
+      </div>
+    </div>
+  );
+}
 
 function Gallery() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -71,12 +82,8 @@ function Gallery() {
         currentFilter === filter
           ? "white"
           : "rgba(255, 255, 255, 0.5019607843)",
-      // Add any other styles you want for the active filter
     };
   };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
@@ -87,40 +94,30 @@ function Gallery() {
         </div>
       </div>
       <div className="category">
-        <Link
-          className="category-filter"
-          href="#"
-          onClick={handleFilterClick("All")}
-          style={getLinkStyle("All")}>
-          All
-        </Link>
-        <Link
-          className="category-filter"
-          href="#"
-          onClick={handleFilterClick("Game")}
-          style={getLinkStyle("Game")}>
-          Game
-        </Link>
-        <Link
-          className="category-filter"
-          href="#"
-          onClick={handleFilterClick("Practice")}
-          style={getLinkStyle("Practice")}>
-          Practice
-        </Link>
-        <Link
-          className="category-filter"
-          href="#"
-          onClick={handleFilterClick("App")}
-          style={getLinkStyle("App")}>
-          App
-        </Link>
-      </div>
-      <div className="projects-container">
-        {filteredProjects.map((project, index) => (
-          <ProjectComponent key={index} {...project} />
+        {["All", "Game", "Practice", "App"].map((filter) => (
+          <Link
+            key={filter}
+            className="category-filter"
+            href="#"
+            onClick={handleFilterClick(filter)}
+            style={getLinkStyle(filter)}>
+            {filter}
+          </Link>
         ))}
       </div>
+      {error ? (
+        <div>Error: {error}</div>
+      ) : (
+        <div className="projects-container">
+          {isLoading
+            ? Array(6)
+                .fill(0)
+                .map((_, index) => <SkeletonProject key={index} />)
+            : filteredProjects.map((project, index) => (
+                <ProjectComponent key={index} {...project} />
+              ))}
+        </div>
+      )}
     </div>
   );
 }

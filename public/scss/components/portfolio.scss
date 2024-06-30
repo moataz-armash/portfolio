@@ -123,3 +123,60 @@
   bottom: 0.2rem;
   left: 0;
 }
+
+/*************************/
+/* Skeleton Page SECTION */
+/*************************/
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.projects-container {
+  display: grid;
+  grid-row-gap: 2.4rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0 5.4rem 4.8rem 5.4rem;
+  grid-column-gap: 2.4rem;
+}
+
+.snapshot-text-container.skeleton {
+  .up-down-text-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    background-color: hsl(200, 20%, 80%);
+  }
+
+  .project-snapshot.skeleton-image {
+    width: 100%;
+    height: 21rem;
+    border-radius: 25px;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+
+  .up-category-text.skeleton-text,
+  .down-category-text.skeleton-text {
+    position: absolute;
+    height: 3.5rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+
+  .up-category-text.skeleton-text {
+    max-width: 9rem;
+    top: 0;
+    left: 0;
+    border-radius: 25px 0 25px 0;
+  }
+
+  .down-category-text.skeleton-text {
+    max-width: 12rem;
+    bottom: 0.2rem;
+    left: 0;
+    border-radius: 0 25px 0 25px;
+  }
+}
