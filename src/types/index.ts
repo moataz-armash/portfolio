@@ -5,3 +5,12 @@ export interface PageContent {
   videoUrl: string;
   cvUrl: string;
 }
+
+// import { StaticImageData } from "next/image";
+
+export interface Project {
+  category: string;
+  name: string;
+  imageUrl: string;
+  link: string;
+}

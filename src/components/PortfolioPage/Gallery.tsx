@@ -1,45 +1,22 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { StaticImageData } from "next/image";
+import { fetchProjects } from "../../services/api";
+import { Project } from "../../types";
 
-import img1 from "../../../public/images/tictactoe1.png";
-import img2 from "../../../public/images/react-essential.png";
-import img3 from "../../../public/images/react-meetup.png";
-
-interface Project {
-  category: string;
-  name: string;
-  image: StaticImageData;
-  link: string;
-}
-
-const projects: Project[] = [
-  {
-    category: "Game",
-    name: "tictactoe",
-    image: img1,
-    link: "https://tic-tac-toe-lake-kappa.vercel.app/",
-  },
-  {
-    category: "Practice",
-    name: "react",
-    image: img2,
-    link: "https://moataz-armash.github.io/react-essentials/",
-  },
-  {
-    category: "Practice",
-    name: "meetup",
-    image: img3,
-    link: "https://meetups-app-by-react.vercel.app/",
-  },
-];
-
-function Project({ category, name, image, link }: Project) {
+function ProjectComponent({ category, name, imageUrl, link }: Project) {
   return (
     <div className="snapshot-text-container">
       <div className="up-down-text-container">
         <a href={link} target="_blank" rel="noopener noreferrer">
-          <Image className="project-snapshot" src={image} alt={category} />
+          <Image
+            className="project-snapshot"
+            src={imageUrl}
+            alt={name}
+            width={500}
+            height={300}
+            unoptimized
+          />
         </a>
         <div className="up-category-text">{category}</div>
         <div className="down-category-text">{name}</div>
@@ -49,6 +26,58 @@ function Project({ category, name, image, link }: Project) {
 }
 
 function Gallery() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+  const [currentFilter, setCurrentFilter] = useState("All");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const fetchedProjects = await fetchProjects();
+        setProjects(fetchedProjects);
+        setFilteredProjects(fetchedProjects);
+      } catch (err) {
+        setError("Failed to load projects");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadProjects();
+  }, []);
+
+  useEffect(() => {
+    if (currentFilter === "All") {
+      setFilteredProjects(projects);
+    } else {
+      const filtered = projects.filter(
+        (project) => project.category === currentFilter
+      );
+      setFilteredProjects(filtered);
+    }
+  }, [currentFilter, projects]);
+
+  const handleFilterClick = (filter: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setCurrentFilter(filter);
+  };
+
+  const getLinkStyle = (filter: string) => {
+    return {
+      fontWeight: currentFilter === filter ? "bold" : "normal",
+      color:
+        currentFilter === filter
+          ? "white"
+          : "rgba(255, 255, 255, 0.5019607843)",
+      // Add any other styles you want for the active filter
+    };
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <div>
       <div className="category-skills">
@@ -58,19 +87,38 @@ function Gallery() {
         </div>
       </div>
       <div className="category">
-        <Link className="category-filter" href="#">
+        <Link
+          className="category-filter"
+          href="#"
+          onClick={handleFilterClick("All")}
+          style={getLinkStyle("All")}>
           All
         </Link>
-        <Link className="category-filter" href="#">
+        <Link
+          className="category-filter"
+          href="#"
+          onClick={handleFilterClick("Game")}
+          style={getLinkStyle("Game")}>
           Game
         </Link>
-        <Link className="category-filter" href="#">
+        <Link
+          className="category-filter"
+          href="#"
+          onClick={handleFilterClick("Practice")}
+          style={getLinkStyle("Practice")}>
           Practice
+        </Link>
+        <Link
+          className="category-filter"
+          href="#"
+          onClick={handleFilterClick("App")}
+          style={getLinkStyle("App")}>
+          App
         </Link>
       </div>
       <div className="projects-container">
-        {projects.map((project, index) => (
-          <Project key={index} {...project} />
+        {filteredProjects.map((project, index) => (
+          <ProjectComponent key={index} {...project} />
         ))}
       </div>
     </div>

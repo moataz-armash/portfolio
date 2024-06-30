@@ -241,7 +241,7 @@ in media queries!, instead 1rem = 1em = 16px */
 
   .main-nav {
     background-color: rgba(0, 0, 0, 0.8);
-    position: absolute;
+    position: fixed; // Change from absolute to fixed
     left: 0;
     top: 0;
     width: 100%;

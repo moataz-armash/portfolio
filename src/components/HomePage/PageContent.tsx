@@ -55,7 +55,7 @@ const PageContent: React.FC = () => {
                   className="btn btn--outline"
                   target="_blank"
                   rel="noopener noreferrer">
-                  View My CV
+                  My CV
                 </a>
               )}
             </div>
