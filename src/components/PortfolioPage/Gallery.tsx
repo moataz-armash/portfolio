@@ -94,7 +94,7 @@ function Gallery() {
         </div>
       </div>
       <div className="category">
-        {["All", "Game", "Practice", "App"].map((filter) => (
+        {["All", "App", "Practice", "Game"].map((filter) => (
           <Link
             key={filter}
             className="category-filter"
