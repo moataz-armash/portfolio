@@ -114,7 +114,7 @@ in media queries!, instead 1rem = 1em = 16px */
   .hero {
     grid-template-columns: 1fr 1fr;
     justify-items: center;
-    padding: 0 8rem;
+    // padding: 0 8rem;
   }
 
   .hero-video-box {
@@ -139,9 +139,9 @@ in media queries!, instead 1rem = 1em = 16px */
     text-align: center;
   }
 
-  .skills-box {
-    padding: 0 11.6rem;
-  }
+  // .skills-box {
+  //   padding: 0 11.6rem;
+  // }
 
   .skill-rate-box {
     display: grid;
@@ -305,7 +305,11 @@ in media queries!, instead 1rem = 1em = 16px */
 
 @media (max-width: 44em) {
   html {
-    font-size: 45%;
+    font-size: 40%;
+  }
+
+  .skill-description {
+    padding: 0 3.6rem;
   }
 
   .heading-primary {
@@ -320,9 +324,9 @@ in media queries!, instead 1rem = 1em = 16px */
     width: 12%;
   }
 
-  .skills-box {
-    padding: 0 3.2rem;
-  }
+  // .skills-box {
+  //   padding: 0 3.2rem;
+  // }
 
   .progress-bar.about {
     width: 17%;
@@ -347,7 +351,7 @@ in media queries!, instead 1rem = 1em = 16px */
   }
 
   .title-desciption-container {
-    width: 50rem;
+    width: 40rem;
   }
 
   .projects-container {
@@ -355,9 +359,14 @@ in media queries!, instead 1rem = 1em = 16px */
     grid-template-columns: 1fr;
   }
 
-  .hero {
-    padding: 0 5.4rem 4.8rem 5.4rem;
+  .hero-video-box {
+    width: 40rem;
+    height: 40rem;
   }
+
+  // .hero {
+  //   padding: 0 5.4rem 4.8rem 5.4rem;
+  // }
   .hero-description {
     padding: 3.6rem 2rem;
   }

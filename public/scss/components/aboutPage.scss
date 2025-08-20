@@ -19,12 +19,13 @@
 .skills-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 5.6rem 0;
+  margin: 5.6rem;
+  // padding: 0 2rem;
 }
 
-.skills-box {
-  padding: 0 5.4rem;
-}
+// .skills-box {
+//   padding: 0 1rem;
+// }
 
 .skills-box .title {
   color: #fff;
