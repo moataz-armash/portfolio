@@ -11,11 +11,11 @@ function ContactInfo() {
         <div className="first-contact-container">
           <div className="info-container">
             <Image className="image-icon" src={phone} alt="phone" />
-            <div className="phone-number">05388970925</div>
+            <div className="phone-number">+905388970925</div>
           </div>
           <div className="info-container">
             <Image className="image-icon" src={location} alt="phone" />
-            <div className="phone-number">Sakarya, Turkey</div>
+            <div className="phone-number">İstanbul, Turkey</div>
           </div>
           <div className="info-container">
             <Image className="image-icon" src={mail} alt="phone" />
