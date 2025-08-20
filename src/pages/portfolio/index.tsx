@@ -7,7 +7,7 @@ function PortfolioPage() {
   return (
     <>
       <Navbar />
-      <Subject title="portfolio" />
+      <Subject title="Portfolio" />
       <Gallery />
       <Footer />
     </>
