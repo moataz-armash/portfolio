@@ -6,5 +6,5 @@ export const DEFAULT_PAGE_CONTENT: PageContent = {
     "I build fast, clean web applications — from pixel-perfect frontends with React & Next.js to full-stack systems with Node.js and Firebase. Currently leveling up in cybersecurity and bug hunting.",
   videoUrl: "",
   cvUrl: "",
-  brandName: "0xMotaz",
+  brandName: "MotazSec",
 };

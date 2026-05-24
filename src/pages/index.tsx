@@ -7,8 +7,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>0xMotaz</title>
-        <meta name="description" content="0xMotaz — Full Stack Developer & Security Enthusiast" />
+        <title>MotazSec</title>
+        <meta
+          name="description"
+          content="MotazSec — Full Stack Developer & Security Enthusiast"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -64,7 +64,7 @@ export const fetchBrandName = async (): Promise<string> => {
     );
     return res.data || "MotazSec";
   } catch {
-    return "0xMotaz";
+    return "MotazSec";
   }
 };
 
