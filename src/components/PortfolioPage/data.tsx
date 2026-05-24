@@ -8,22 +8,22 @@ import img6 from "../../../public/images/wallpaperflare.com_wallpaper.jpg";
 export const DATA = {
   all: {
     type: "all",
-    name: "DevMoataz",
+    name: "MotazSec",
     image: img1,
   },
   portfolio: {
     type: "portfolio",
-    name: "DevMoataz",
+    name: "MotazSec",
     image: img2,
   },
   blog: {
     type: "blog",
-    name: "DevMoataz",
+    name: "MotazSec",
     image: img3,
   },
   business: {
     type: "business",
-    name: "DevMoataz",
+    name: "MotazSec",
     image: img4,
   },
 };

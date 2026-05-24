@@ -181,6 +181,7 @@ in media queries!, instead 1rem = 1em = 16px */
   .tech-filter-row {
     padding: 0 2rem 3.2rem 2rem;
     justify-content: center;
+    gap: 0.6rem;
   }
 
   .projects-container {
@@ -207,32 +208,20 @@ in media queries!, instead 1rem = 1em = 16px */
 
   .contact-massege-box {
     grid-template-columns: 1fr;
-  }
-  .first-contact-container,
-  .second-contact-container,
-  .contact-me,
-  .input-container,
-  .buttons {
-    grid-column: 1/-1;
+    padding: 3.2rem 2rem;
   }
 
-  .second-contact-container {
-    justify-items: center;
+  .first-contact-container {
+    gap: 2rem;
+    margin-bottom: 1.6rem;
   }
 
   .info-container {
-    justify-items: center;
-    display: grid;
-    grid-template-columns: 1fr;
+    gap: 1.2rem;
   }
 
-  .info-container:last-child {
-    margin-bottom: 6.4rem;
-  }
-
-  .image-icon {
-    width: 9rem;
-    height: 9rem;
+  .phone-number {
+    font-size: 1.4rem;
   }
 
   .progress-bar.contact {
@@ -243,9 +232,8 @@ in media queries!, instead 1rem = 1em = 16px */
     grid-template-columns: 1fr;
   }
 
-  textarea {
+  .textarea-wrap {
     grid-column: 1 / -1;
-    grid-row: 4;
   }
 
   .main-nav {

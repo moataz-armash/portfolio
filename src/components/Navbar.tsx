@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import NavLink from "./NavLink";
-import { isOmittedExpression } from "typescript";
+import { useBrandName } from "../hooks/useBrandName";
 function Navbar() {
   useEffect(() => {
     const btnNavEl = document.querySelector(".btn-mobile-nav");
@@ -33,6 +33,7 @@ function Navbar() {
     checkFlexGap();
   }, []);
 
+  const brandName = useBrandName();
   const [isOpen, setIsOpen] = useState(true);
   const clickHandle = () => {
     setIsOpen(!isOpen);
@@ -46,7 +47,7 @@ function Navbar() {
       <header className={isOpen ? "header" : "header nav-open"}>
         <div className="logo-side">
           <div className="logo">&nbsp;</div>
-          <div className="letter">DevMoataz</div>
+          <div className="letter">{brandName}</div>
         </div>
         <nav className="main-nav">
           <ul className="main-nav-list">
@@ -56,7 +57,7 @@ function Navbar() {
             <li>
               <NavLink
                 href="/about"
-                text="Front-end skills"
+                text="Full Stack & Security"
                 closeMenu={closeMenu}
               />
             </li>

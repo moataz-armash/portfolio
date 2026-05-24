@@ -7,11 +7,18 @@ import { Project } from "../../types";
 const parseStack = (s?: string): string[] =>
   s ? s.split(",").map((t) => t.trim()).filter(Boolean) : [];
 
+const normalizeTech = (t: string) => t.replace(/\./g, "").toLowerCase().trim();
+
+const DAYS_14 = 14 * 24 * 60 * 60 * 1000;
+const isRecent = (createdAt?: number) =>
+  !!createdAt && Date.now() - createdAt < DAYS_14;
+
 /* ── Project card ─────────────────────────────────────── */
 function ProjectComponent({ project, onClick }: { project: Project; onClick: () => void }) {
+  const recent = isRecent(project.createdAt);
   return (
     <div className="snapshot-text-container" onClick={onClick} style={{ cursor: "pointer" }}>
-      <div className="up-down-text-container">
+      <div className="image-scale-wrapper">
         <Image
           className="project-snapshot"
           src={project.imageUrl}
@@ -20,9 +27,10 @@ function ProjectComponent({ project, onClick }: { project: Project; onClick: () 
           height={300}
           unoptimized
         />
-        <div className="up-category-text">{project.category}</div>
-        <div className="down-category-text">{project.name}</div>
       </div>
+      <div className="up-category-text">{project.category}</div>
+      <div className="down-category-text">{project.name}</div>
+      {recent && <div className="new-badge">Just Added</div>}
     </div>
   );
 }
@@ -108,7 +116,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             target="_blank"
             rel="noopener noreferrer"
             className="modal-view-btn">
-            View Project →
+            View Project
           </a>
         </div>
       </div>
@@ -142,12 +150,18 @@ function Gallery() {
   }, []);
 
   const availableTechs = useMemo(() => {
-    const set = new Set<string>();
+    const seen = new Map<string, string>();
+    const addTech = (t: string) => {
+      const trimmed = t.trim();
+      if (!trimmed || trimmed === "All") return;
+      const key = normalizeTech(trimmed);
+      if (!seen.has(key)) seen.set(key, trimmed);
+    };
     projects.forEach((p) => {
-      parseStack(p.mainStack).forEach((t) => set.add(t));
-      if (p.techStack) Object.keys(p.techStack).forEach((t) => set.add(t));
+      parseStack(p.mainStack).forEach(addTech);
+      if (p.techStack) Object.keys(p.techStack).forEach(addTech);
     });
-    return Array.from(set).sort();
+    return Array.from(seen.values()).sort();
   }, [projects]);
 
   useEffect(() => {
@@ -156,10 +170,11 @@ function Gallery() {
       filtered = filtered.filter((p) => p.category === currentFilter);
     }
     if (techFilter !== "All") {
+      const normFilter = normalizeTech(techFilter);
       filtered = filtered.filter(
         (p) =>
-          (p.techStack && techFilter in p.techStack) ||
-          parseStack(p.mainStack).includes(techFilter)
+          (p.techStack && Object.keys(p.techStack).some((k) => normalizeTech(k) === normFilter)) ||
+          parseStack(p.mainStack).some((t) => normalizeTech(t) === normFilter)
       );
     }
     setFilteredProjects(filtered);
@@ -203,6 +218,7 @@ function Gallery() {
       {/* Tech stack filter */}
       {availableTechs.length > 0 && (
         <div className="tech-filter-row">
+          <span className="tech-filter-label">Stack</span>
           {["All", ...availableTechs].map((tech) => (
             <button
               key={tech}

@@ -4,6 +4,7 @@ export interface PageContent {
   description: string;
   videoUrl: string;
   cvUrl: string;
+  brandName?: string;
 }
 
 // import { StaticImageData } from "next/image";
@@ -17,4 +18,24 @@ export interface Project {
   description?: string;
   mainStack?: string;
   techStack?: Record<string, string>;
+  createdAt?: number;
+}
+
+export interface AboutSkillItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface AboutSkillBar {
+  name: string;
+  percentage: number;
+}
+
+export interface AboutContent {
+  pageTitle: string;
+  whatIDoTitle: string;
+  items: AboutSkillItem[];
+  skillsTitle: string;
+  skills: AboutSkillBar[];
 }

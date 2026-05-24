@@ -32,7 +32,15 @@ const PageContent: React.FC = () => {
     const loadPageContent = async () => {
       try {
         const content = await fetchPageContent();
-        setPageContent(content);
+        if (content) {
+          setPageContent({
+            title:       content.title       || DEFAULT_PAGE_CONTENT.title,
+            subtitle:    content.subtitle    || DEFAULT_PAGE_CONTENT.subtitle,
+            description: content.description || DEFAULT_PAGE_CONTENT.description,
+            videoUrl:    content.videoUrl    ?? DEFAULT_PAGE_CONTENT.videoUrl,
+            cvUrl:       content.cvUrl       ?? DEFAULT_PAGE_CONTENT.cvUrl,
+          });
+        }
       } catch (error) {
         console.error("Error loading page content:", error);
       } finally {

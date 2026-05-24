@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
+import { useBrandName } from "../hooks/useBrandName";
 
 function Footer() {
+  const brandName = useBrandName();
   const [currentYear, setCurrentYear] = useState("2023");
   const autoYear = new Date().getFullYear().toString();
   if (autoYear !== currentYear) {
@@ -28,7 +30,7 @@ function Footer() {
             </Link>
           </ul>
         </nav>
-        <p className="copywrite">&copy; {currentYear} DevMoataz</p>
+        <p className="copywrite">&copy; {currentYear} {brandName}</p>
       </footer>
     </>
   );

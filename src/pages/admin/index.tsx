@@ -1,7 +1,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import Image from "next/image";
-import { fetchProjects, addProject, updateProject, deleteProject } from "../../services/api";
-import { Project } from "../../types";
+import { fetchProjects, addProject, updateProject, deleteProject, fetchAboutContent, updateAboutContent, fetchPageContent, updatePageContent } from "../../services/api";
+import { Project, AboutContent, AboutSkillItem, AboutSkillBar, PageContent } from "../../types";
 
 const CATEGORIES = ["App", "Practice", "Game"];
 
@@ -169,12 +169,39 @@ export default function AdminPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [formError, setFormError] = useState("");
 
+  const [aboutForm, setAboutForm] = useState<AboutContent | null>(null);
+  const [loadingAbout, setLoadingAbout] = useState(false);
+  const [savingAbout, setSavingAbout] = useState(false);
+  const [aboutError, setAboutError] = useState("");
+  const [aboutSaved, setAboutSaved] = useState(false);
+
+  const [heroForm, setHeroForm] = useState<PageContent>({
+    brandName: "0xMotaz",
+    title: "Moataz Mohamed",
+    subtitle: "Full Stack Developer & Security Enthusiast",
+    description: "I build fast, clean web applications — from pixel-perfect frontends with React & Next.js to full-stack systems with Node.js and Firebase. Currently leveling up in cybersecurity and bug hunting.",
+    videoUrl: "",
+    cvUrl: "",
+  });
+  const [loadingHero, setLoadingHero] = useState(false);
+  const [savingHero, setSavingHero] = useState(false);
+  const [heroError, setHeroError] = useState("");
+  const [heroSaved, setHeroSaved] = useState(false);
+
   useEffect(() => {
     if (sessionStorage.getItem("admin_auth") === "true") setAuthenticated(true);
   }, []);
 
   useEffect(() => {
-    if (authenticated) loadProjects();
+    if (authenticated) {
+      loadProjects();
+      setLoadingAbout(true);
+      fetchAboutContent().then(setAboutForm).finally(() => setLoadingAbout(false));
+      setLoadingHero(true);
+      fetchPageContent()
+        .then((data) => { if (data) setHeroForm((prev) => ({ ...prev, ...data })); })
+        .finally(() => setLoadingHero(false));
+    }
   }, [authenticated]);
 
   const loadProjects = async () => {
@@ -221,15 +248,24 @@ export default function AdminPage() {
     setFormError("");
   };
 
-  const buildPayload = (): Omit<Project, "id"> => ({
-    name: form.name,
-    category: form.category,
-    imageUrl: form.imageUrl,
-    link: form.link,
-    ...(form.description && { description: form.description }),
-    ...(form.mainStack && { mainStack: form.mainStack }),
-    ...(Object.keys(form.techStack).length > 0 && { techStack: form.techStack }),
-  });
+  // Firebase keys cannot contain . # $ [ ] /
+  const sanitizeKey = (k: string) => k.replace(/[.#$[\]/]/g, "");
+
+  const buildPayload = (isNew = false): Omit<Project, "id"> => {
+    const safeTechStack = Object.fromEntries(
+      Object.entries(form.techStack).map(([k, v]) => [sanitizeKey(k), v])
+    );
+    return {
+      name: form.name,
+      category: form.category,
+      imageUrl: form.imageUrl,
+      link: form.link,
+      ...(form.description && { description: form.description }),
+      ...(form.mainStack && { mainStack: form.mainStack }),
+      ...(Object.keys(safeTechStack).length > 0 && { techStack: safeTechStack }),
+      ...(isNew && { createdAt: Date.now() }),
+    };
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -241,16 +277,20 @@ export default function AdminPage() {
     setSubmitting(true);
     try {
       if (editingProject) {
-        await updateProject(editingProject.id!, buildPayload());
+        await updateProject(editingProject.id!, buildPayload(false));
         setEditingProject(null);
       } else {
-        await addProject(buildPayload());
+        await addProject(buildPayload(true));
       }
       setForm(emptyForm);
       setNewTech(emptyNewTech);
       await loadProjects();
-    } catch {
-      setFormError(`Failed to ${editingProject ? "update" : "add"} project. Check Firebase write rules.`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message
+        : (err as { response?: { data?: unknown } })?.response?.data
+          ? JSON.stringify((err as { response: { data: unknown } }).response.data)
+          : String(err);
+      setFormError(`Error: ${msg}`);
     } finally {
       setSubmitting(false);
     }
@@ -269,9 +309,75 @@ export default function AdminPage() {
     }
   };
 
+  const handleSaveHero = async () => {
+    if (!heroForm) return;
+    setSavingHero(true);
+    setHeroError("");
+    setHeroSaved(false);
+    try {
+      await updatePageContent(heroForm);
+      setHeroSaved(true);
+      setTimeout(() => setHeroSaved(false), 3000);
+    } catch {
+      setHeroError("Failed to save. Check Firebase write rules.");
+    } finally {
+      setSavingHero(false);
+    }
+  };
+
   const handleLogout = () => {
     sessionStorage.removeItem("admin_auth");
     setAuthenticated(false);
+  };
+
+  const handleSaveAbout = async () => {
+    if (!aboutForm) return;
+    setSavingAbout(true);
+    setAboutError("");
+    setAboutSaved(false);
+    try {
+      await updateAboutContent(aboutForm);
+      setAboutSaved(true);
+      setTimeout(() => setAboutSaved(false), 3000);
+    } catch {
+      setAboutError("Failed to save. Check Firebase write rules.");
+    } finally {
+      setSavingAbout(false);
+    }
+  };
+
+  const updateAboutItem = (i: number, field: keyof AboutSkillItem, value: string) => {
+    if (!aboutForm) return;
+    const items = [...aboutForm.items];
+    items[i] = { ...items[i], [field]: value };
+    setAboutForm({ ...aboutForm, items });
+  };
+
+  const addAboutItem = () => {
+    if (!aboutForm) return;
+    setAboutForm({ ...aboutForm, items: [...aboutForm.items, { icon: "✨", title: "", description: "" }] });
+  };
+
+  const removeAboutItem = (i: number) => {
+    if (!aboutForm) return;
+    setAboutForm({ ...aboutForm, items: aboutForm.items.filter((_, idx) => idx !== i) });
+  };
+
+  const updateAboutSkill = (i: number, field: keyof AboutSkillBar, value: string | number) => {
+    if (!aboutForm) return;
+    const skills = [...aboutForm.skills];
+    skills[i] = { ...skills[i], [field]: field === "percentage" ? Number(value) : value };
+    setAboutForm({ ...aboutForm, skills });
+  };
+
+  const addAboutSkill = () => {
+    if (!aboutForm) return;
+    setAboutForm({ ...aboutForm, skills: [...aboutForm.skills, { name: "", percentage: 50 }] });
+  };
+
+  const removeAboutSkill = (i: number) => {
+    if (!aboutForm) return;
+    setAboutForm({ ...aboutForm, skills: aboutForm.skills.filter((_, idx) => idx !== i) });
   };
 
   if (!authenticated) return <LoginForm onLogin={() => setAuthenticated(true)} />;
@@ -368,13 +474,20 @@ export default function AdminPage() {
 
               {/* Add tech sub-form */}
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 2fr auto", gap: "0.6rem", marginTop: "0.6rem" }}>
-                <input
-                  style={s.input}
-                  value={newTech.name}
-                  onChange={(e) => setNewTech({ ...newTech, name: e.target.value })}
-                  placeholder="Tech name"
-                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTech(); } }}
-                />
+                <div>
+                  <input
+                    style={s.input}
+                    value={newTech.name}
+                    onChange={(e) => setNewTech({ ...newTech, name: e.target.value })}
+                    placeholder="Tech name"
+                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTech(); } }}
+                  />
+                  {/[.#$[\]/]/.test(newTech.name) && (
+                    <div style={{ color: "#f39c12", fontSize: "0.75rem", marginTop: "0.25rem" }}>
+                      Dots/special chars will be removed from the key (e.g. "Next.js" → "Nextjs")
+                    </div>
+                  )}
+                </div>
                 <input
                   style={s.input}
                   value={newTech.description}
@@ -440,6 +553,134 @@ export default function AdminPage() {
                 </div>
               </div>
             ))
+          )}
+        </div>
+
+        {/* Hero Section Editor */}
+        <div style={{ ...s.card, padding: pad }}>
+          <div style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "1.25rem", color: "#ccc" }}>Hero Section</div>
+          {loadingHero && <div style={{ color: "#666", fontSize: "0.85rem", marginBottom: "0.75rem" }}>Loading from Firebase...</div>}
+          <div style={{ marginBottom: "1rem" }}>
+            <label style={s.label}>Brand Name (navbar & footer)</label>
+            <input style={{ ...s.input, maxWidth: isMobile ? "100%" : "260px" }} value={heroForm.brandName ?? ""} onChange={(e) => setHeroForm({ ...heroForm, brandName: e.target.value })} placeholder="0xMotaz" />
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "1rem", marginBottom: "1rem" }}>
+            <div>
+              <label style={s.label}>Title (your name)</label>
+              <input style={s.input} value={heroForm.title} onChange={(e) => setHeroForm({ ...heroForm, title: e.target.value })} placeholder="Moataz Mohamed" />
+            </div>
+            <div>
+              <label style={s.label}>Subtitle (role / tagline)</label>
+              <input style={s.input} value={heroForm.subtitle} onChange={(e) => setHeroForm({ ...heroForm, subtitle: e.target.value })} placeholder="Full Stack Developer & Security Enthusiast" />
+            </div>
+          </div>
+          <div style={{ marginBottom: "1rem" }}>
+            <label style={s.label}>Description</label>
+            <textarea
+              style={{ ...s.input, resize: "vertical", minHeight: "80px" }}
+              value={heroForm.description}
+              onChange={(e) => setHeroForm({ ...heroForm, description: e.target.value })}
+              placeholder="Brief intro shown on the home page..."
+            />
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "1rem", marginBottom: "1rem" }}>
+            <div>
+              <label style={s.label}>Video URL (Cloudinary public ID)</label>
+              <input style={s.input} value={heroForm.videoUrl} onChange={(e) => setHeroForm({ ...heroForm, videoUrl: e.target.value })} placeholder="my-video-id" />
+            </div>
+            <div>
+              <label style={s.label}>CV URL</label>
+              <input style={s.input} value={heroForm.cvUrl} onChange={(e) => setHeroForm({ ...heroForm, cvUrl: e.target.value })} placeholder="https://..." />
+            </div>
+          </div>
+          {heroError && <div style={s.error}>{heroError}</div>}
+          {heroSaved && <div style={{ color: "#2ecc71", fontSize: "0.85rem", marginBottom: "0.5rem" }}>Saved successfully.</div>}
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+            <button style={s.btn} onClick={handleSaveHero} disabled={savingHero}>
+              {savingHero ? "Saving..." : "Save Hero Section"}
+            </button>
+            <button style={s.ghostBtn} type="button" onClick={() => setHeroForm({
+              brandName: "0xMotaz",
+              title: "Moataz Mohamed",
+              subtitle: "Full Stack Developer & Security Enthusiast",
+              description: "I build fast, clean web applications — from pixel-perfect frontends with React & Next.js to full-stack systems with Node.js and Firebase. Currently leveling up in cybersecurity and bug hunting.",
+              videoUrl: heroForm.videoUrl,
+              cvUrl: heroForm.cvUrl,
+            })}>
+              Reset to New Defaults
+            </button>
+          </div>
+        </div>
+
+        {/* About Page Editor */}
+        <div style={{ ...s.card, padding: pad }}>
+          <div style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "1.25rem", color: "#ccc" }}>About Page</div>
+
+          {loadingAbout || !aboutForm ? (
+            <div style={{ color: "#666", padding: "1rem 0" }}>{loadingAbout ? "Loading..." : "No data."}</div>
+          ) : (
+            <>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: "1rem", marginBottom: "1.25rem" }}>
+                <div>
+                  <label style={s.label}>Page Title</label>
+                  <input style={s.input} value={aboutForm.pageTitle} onChange={(e) => setAboutForm({ ...aboutForm, pageTitle: e.target.value })} />
+                </div>
+                <div>
+                  <label style={s.label}>Left Box Title</label>
+                  <input style={s.input} value={aboutForm.whatIDoTitle} onChange={(e) => setAboutForm({ ...aboutForm, whatIDoTitle: e.target.value })} />
+                </div>
+                <div>
+                  <label style={s.label}>Skills Box Title</label>
+                  <input style={s.input} value={aboutForm.skillsTitle} onChange={(e) => setAboutForm({ ...aboutForm, skillsTitle: e.target.value })} />
+                </div>
+              </div>
+
+              <hr style={s.divider} />
+
+              <div style={{ marginBottom: "1.25rem" }}>
+                <label style={{ ...s.label, marginBottom: "0.75rem" }}>What I Do — Items</label>
+                {aboutForm.items.map((item, i) => (
+                  <div key={i} style={{ ...s.techChip, flexDirection: "column", gap: "0.5rem", marginBottom: "0.75rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "80px 1fr auto", gap: "0.5rem", width: "100%" }}>
+                      <input style={s.input} value={item.icon} placeholder="Emoji" onChange={(e) => updateAboutItem(i, "icon", e.target.value)} />
+                      <input style={s.input} value={item.title} placeholder="Title" onChange={(e) => updateAboutItem(i, "title", e.target.value)} />
+                      <button type="button" style={{ ...s.ghostBtn, padding: "0.2rem 0.6rem", fontSize: "1rem", alignSelf: "center" }} onClick={() => removeAboutItem(i)}>✕</button>
+                    </div>
+                    <textarea
+                      style={{ ...s.input, resize: "vertical", minHeight: "55px" }}
+                      value={item.description}
+                      placeholder="Description"
+                      onChange={(e) => updateAboutItem(i, "description", e.target.value)}
+                    />
+                  </div>
+                ))}
+                <button type="button" style={s.ghostBtn} onClick={addAboutItem}>+ Add Item</button>
+              </div>
+
+              <hr style={s.divider} />
+
+              <div style={{ marginBottom: "1.25rem" }}>
+                <label style={{ ...s.label, marginBottom: "0.75rem" }}>Skill Bars</label>
+                {aboutForm.skills.map((skill, i) => (
+                  <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 90px 50px auto", gap: "0.5rem", marginBottom: "0.5rem", alignItems: "center" }}>
+                    <input style={s.input} value={skill.name} placeholder="Skill name" onChange={(e) => updateAboutSkill(i, "name", e.target.value)} />
+                    <input style={s.input} type="number" min={0} max={100} value={skill.percentage} onChange={(e) => updateAboutSkill(i, "percentage", e.target.value)} />
+                    <div style={{ height: "6px", background: "#333", borderRadius: "4px", overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${skill.percentage}%`, background: "#007ced", borderRadius: "4px" }} />
+                    </div>
+                    <button type="button" style={{ ...s.ghostBtn, padding: "0.2rem 0.6rem", fontSize: "1rem" }} onClick={() => removeAboutSkill(i)}>✕</button>
+                  </div>
+                ))}
+                <button type="button" style={s.ghostBtn} onClick={addAboutSkill}>+ Add Skill</button>
+              </div>
+
+              {aboutError && <div style={s.error}>{aboutError}</div>}
+              {aboutSaved && <div style={{ color: "#2ecc71", fontSize: "0.85rem", marginBottom: "0.5rem" }}>Saved successfully.</div>}
+
+              <button style={s.btn} onClick={handleSaveAbout} disabled={savingAbout}>
+                {savingAbout ? "Saving..." : "Save About Page"}
+              </button>
+            </>
           )}
         </div>
 
