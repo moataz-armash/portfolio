@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "license": "MIT",
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
@@ -16,6 +19,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@ionic/react": "^7.3.2",
     "@types/node": "20.4.1",
+    "@types/nodemailer": "^8.0.0",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "axios": "^1.7.2",
@@ -24,6 +28,7 @@
     "cloudinary-react": "^1.8.1",
     "lodash": "^4.17.21",
     "next": "^13.4.12",
+    "nodemailer": "^8.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.64.2",
