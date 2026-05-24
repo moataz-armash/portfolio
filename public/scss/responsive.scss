@@ -178,6 +178,11 @@ in media queries!, instead 1rem = 1em = 16px */
     justify-content: center;
   }
 
+  .tech-filter-row {
+    padding: 0 2rem 3.2rem 2rem;
+    justify-content: center;
+  }
+
   .projects-container {
     grid-template-columns: 1fr 1fr;
     padding: 0 5.4rem 4.8rem 5.4rem;
@@ -185,6 +190,10 @@ in media queries!, instead 1rem = 1em = 16px */
 
   .category {
     gap: 3.2rem;
+  }
+
+  .modal-image-wrap {
+    height: 18rem;
   }
 
   .main-nav-link:link,
@@ -362,6 +371,23 @@ in media queries!, instead 1rem = 1em = 16px */
     row-gap: 3rem;
     grid-template-columns: 1fr;
   }
+
+  .modal-card {
+    max-height: 95vh;
+  }
+
+  .modal-image-wrap {
+    height: 14rem;
+  }
+
+  .modal-body {
+    padding: 1.4rem;
+  }
+
+  .modal-project-name {
+    font-size: 1.6rem;
+  }
+
 
   .hero-video-box {
     width: 40rem;

@@ -24,13 +24,29 @@ const projectsApi =
 
 export const fetchProjects = async (): Promise<Project[]> => {
   try {
-    const response = await axios.get<Record<string, Project>>(
+    const response = await axios.get<Record<string, Project> | null>(
       `${projectsApi}/projects.json`
     );
-    // Convert the object to an array
-    return Object.values(response.data);
+    if (!response.data) return [];
+    return Object.entries(response.data).map(([id, project]) => ({ ...project, id }));
   } catch (error) {
     console.error("Error fetching projects:", error);
     throw error;
   }
+};
+
+export const addProject = async (project: Omit<Project, "id">): Promise<string> => {
+  const response = await axios.post<{ name: string }>(
+    `${projectsApi}/projects.json`,
+    project
+  );
+  return response.data.name;
+};
+
+export const updateProject = async (id: string, project: Omit<Project, "id">): Promise<void> => {
+  await axios.patch(`${projectsApi}/projects/${id}.json`, project);
+};
+
+export const deleteProject = async (id: string): Promise<void> => {
+  await axios.delete(`${projectsApi}/projects/${id}.json`);
 };

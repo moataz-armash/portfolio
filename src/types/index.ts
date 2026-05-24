@@ -9,8 +9,12 @@ export interface PageContent {
 // import { StaticImageData } from "next/image";
 
 export interface Project {
+  id?: string;
   category: string;
   name: string;
   imageUrl: string;
   link: string;
+  description?: string;
+  mainStack?: string;
+  techStack?: Record<string, string>;
 }
